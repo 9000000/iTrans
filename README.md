@@ -1,8 +1,3 @@
-Dưới đây là bản **README.md** của bạn đã được định dạng lại hoàn chỉnh, loại bỏ lỗi thừa (```markdown / ````), căn dòng chuẩn Markdown GitHub và trình bày gọn đẹp 👇
-
----
-
-````markdown
 # 🌐 AI Translator – Chrome Extension (Google Gemini)
 
 **AI Translator** là tiện ích mở rộng (Chrome Extension) giúp bạn dịch nhanh đoạn văn bản được chọn ngay trên trang web bằng **Google Gemini API**.
@@ -27,6 +22,7 @@ Dưới đây là bản **README.md** của bạn đã được định dạng l
     ```bash
     git clone https://github.com/nguyendangkin/iTrans.git
     ```
+
 ````
 
 Hoặc tải file ZIP và giải nén.
@@ -143,3 +139,4 @@ hãy tạo **issue** hoặc **pull request** tại repo này 💬
 
 MIT License © 2025
 Tự do sử dụng, chỉnh sửa, phân phối, miễn là ghi nguồn gốc.
+````
