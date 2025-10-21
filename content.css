@@ -59,6 +59,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: move; /* indicate draggable */
 }
 
 .ai-popup-close {
@@ -76,6 +77,13 @@
   overflow-y: auto;
   font-size: 14px;
   color: #333;
+}
+
+/* During drag we don't want text to be selected */
+.ai-dragging, .ai-dragging * {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -ms-user-select: none !important;
 }
 
 .ai-original strong,
