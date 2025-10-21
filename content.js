@@ -48,7 +48,7 @@ function createPopup() {
     let dragOffsetX = 0;
     let dragOffsetY = 0;
 
-    const header = popup.querySelector('.ai-popup-header');
+    const header = popup.querySelector(".ai-popup-header");
 
     function clampPosition(x, y, popupEl) {
         const pad = 8; // keep some padding from edges
@@ -65,24 +65,24 @@ function createPopup() {
     function startDrag(clientX, clientY) {
         const rect = popup.getBoundingClientRect();
         isDragging = true;
-        popup.classList.add('ai-dragging');
+        popup.classList.add("ai-dragging");
         dragOffsetX = clientX - rect.left;
         dragOffsetY = clientY - rect.top;
     }
 
     function onMove(clientX, clientY) {
         if (!isDragging) return;
-        let x = clientX - dragOffsetX + window.scrollX;
-        let y = clientY - dragOffsetY + window.scrollY;
+        let x = clientX - dragOffsetX;
+        let y = clientY - dragOffsetY;
         const pos = clampPosition(x, y, popup);
-        popup.style.left = pos.x + 'px';
-        popup.style.top = pos.y + 'px';
+        popup.style.left = pos.x + "px";
+        popup.style.top = pos.y + "px";
     }
 
     function endDrag() {
         if (!isDragging) return;
         isDragging = false;
-        popup.classList.remove('ai-dragging');
+        popup.classList.remove("ai-dragging");
         // Persist position (relative to document)
         const left = parseFloat(popup.style.left) || 0;
         const top = parseFloat(popup.style.top) || 0;
@@ -90,38 +90,46 @@ function createPopup() {
     }
 
     // Mouse events
-    header.addEventListener('mousedown', (e) => {
+    header.addEventListener("mousedown", (e) => {
         // Only left button
         if (e.button !== 0) return;
         e.preventDefault();
         startDrag(e.clientX, e.clientY);
     });
 
-    document.addEventListener('mousemove', (e) => {
+    document.addEventListener("mousemove", (e) => {
         onMove(e.clientX, e.clientY);
     });
 
-    document.addEventListener('mouseup', (e) => {
+    document.addEventListener("mouseup", (e) => {
         endDrag();
     });
 
     // Touch events
-    header.addEventListener('touchstart', (e) => {
-        const t = e.touches[0];
-        if (!t) return;
-        e.preventDefault();
-        startDrag(t.clientX, t.clientY);
-    }, { passive: false });
+    header.addEventListener(
+        "touchstart",
+        (e) => {
+            const t = e.touches[0];
+            if (!t) return;
+            e.preventDefault();
+            startDrag(t.clientX, t.clientY);
+        },
+        { passive: false }
+    );
 
-    document.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        const t = e.touches[0];
-        if (!t) return;
-        e.preventDefault();
-        onMove(t.clientX, t.clientY);
-    }, { passive: false });
+    document.addEventListener(
+        "touchmove",
+        (e) => {
+            if (!isDragging) return;
+            const t = e.touches[0];
+            if (!t) return;
+            e.preventDefault();
+            onMove(t.clientX, t.clientY);
+        },
+        { passive: false }
+    );
 
-    document.addEventListener('touchend', (e) => {
+    document.addEventListener("touchend", (e) => {
         endDrag();
     });
 
@@ -196,23 +204,27 @@ async function translateSelectedText() {
     hideTranslateButton();
 
     // Load saved position if any
-    const data = await chrome.storage.sync.get(['popupPos']);
+    const data = await chrome.storage.sync.get(["popupPos"]);
     const saved = data.popupPos;
 
-    if (saved && typeof saved.left === 'number' && typeof saved.top === 'number') {
+    if (
+        saved &&
+        typeof saved.left === "number" &&
+        typeof saved.top === "number"
+    ) {
         // Use saved position
-        popupEl.style.left = saved.left + 'px';
-        popupEl.style.top = saved.top + 'px';
+        popupEl.style.left = saved.left + "px";
+        popupEl.style.top = saved.top + "px";
     } else {
         // Position popup under the selection
         const rect = selectionRange.getBoundingClientRect();
-        popupEl.style.left = `${rect.left + window.scrollX}px`;
-        popupEl.style.top = `${rect.bottom + window.scrollY + 8}px`;
+        popupEl.style.left = `${rect.left}px`;
+        popupEl.style.top = `${rect.bottom + 8}px`;
     }
 
     // Ensure it's visible and within viewport
-    popupEl.style.display = 'block';
-    const clamped = (function() {
+    popupEl.style.display = "block";
+    const clamped = (function () {
         const pad = 8;
         const vw = window.innerWidth;
         const vh = window.innerHeight;
@@ -226,9 +238,8 @@ async function translateSelectedText() {
         return { left, top };
     })();
 
-    popupEl.style.left = clamped.left + 'px';
-    popupEl.style.top = clamped.top + 'px';
-
+    popupEl.style.left = clamped.left + "px";
+    popupEl.style.top = clamped.top + "px";
 
     try {
         const result = await chrome.runtime.sendMessage({
