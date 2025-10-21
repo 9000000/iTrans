@@ -31,7 +31,7 @@
     "commands": {
         "translate-text": {
             "suggested_key": {
-                "default": "Ctrl+Alt+1"
+                "default": "Alt+Shift+T"
             },
             "description": "Dịch văn bản đã chọn"
         }

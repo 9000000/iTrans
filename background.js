@@ -100,7 +100,7 @@ async function callGeminiAPI(apiKey, text, targetLang) {
     const prompt = `Translate the following text to ${targetLangName}. Only return the translation without any explanation or additional text:\n\n${text}`;
 
     const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${apiKey}`,
         {
             method: "POST",
             headers: {
