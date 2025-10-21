@@ -121,12 +121,9 @@ ai-translator-extension/
 
 ## 🚀 7. Phím tắt mặc định
 
-| Hành động            | Phím              |
-| -------------------- | ----------------- |
-| Dịch nhanh đoạn chọn | `Alt + Shift + T` |
-
-> Có thể tùy chỉnh tại:
-> `chrome://extensions/shortcuts`
+| Hành động            | Phím         |
+| -------------------- | ------------ |
+| Dịch nhanh đoạn chọn | `Ctrl+Alt+T` |
 
 ---
 
