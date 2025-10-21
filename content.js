@@ -23,7 +23,7 @@ function createTranslateButton() {
     return translateButton;
 }
 
-// Create popup
+// Create popup (đã bỏ phần Gốc)
 function createPopup() {
     if (popup) return popup;
 
@@ -36,12 +36,7 @@ function createPopup() {
                 <button class="ai-popup-close">&times;</button>
             </div>
             <div class="ai-popup-body">
-                <div class="ai-original">
-                    <strong>Gốc:</strong>
-                    <div class="ai-text ai-original-text"></div>
-                </div>
                 <div class="ai-translated">
-                    <strong>Dịch:</strong>
                     <div class="ai-text ai-translated-text"></div>
                 </div>
             </div>
@@ -114,10 +109,8 @@ async function translateSelectedText() {
     if (!selectedText) return;
 
     const popupEl = createPopup();
-    const originalDiv = popupEl.querySelector(".ai-original-text");
     const translatedDiv = popupEl.querySelector(".ai-translated-text");
 
-    originalDiv.textContent = selectedText;
     translatedDiv.innerHTML = '<div class="ai-loading">Đang dịch...</div>';
     hideTranslateButton();
 
