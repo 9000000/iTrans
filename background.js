@@ -97,28 +97,40 @@ async function callGeminiAPI(apiKey, text, targetLang) {
 
     const targetLangName = langNames[targetLang] || "Vietnamese";
 
-    const prompt = `Translate the following text to ${targetLangName}. Only return the translation without any explanation or additional text:\n\n${text}`;
+    // Kiểm tra xem text có phải là một từ đơn hay không
+    const isSingleWord = text.trim().split(/\s+/).length === 1;
+
+    let prompt;
+    if (isSingleWord) {
+        // Nếu là từ đơn → tra kiểu từ điển
+        prompt = `
+You are a bilingual dictionary assistant. Analyze the following word and return its meaning in ${targetLangName}.
+The response must be short, structured, and clean (no markdown, no explanations beyond definitions).
+Include:
+- Part of speech (noun, verb, adjective, etc.)
+- Meanings (in ${targetLangName})
+- Example sentences (if possible)
+Word: "${text}"
+        `.trim();
+    } else {
+        // Nếu là cụm hoặc câu → dịch bình thường
+        prompt = `
+Translate the following text into ${targetLangName}.
+Only return the translation — no explanation, no notes.
+Text: ${text}
+        `.trim();
+    }
 
     const response = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${apiKey}`,
         {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                contents: [
-                    {
-                        parts: [
-                            {
-                                text: prompt,
-                            },
-                        ],
-                    },
-                ],
+                contents: [{ parts: [{ text: prompt }] }],
                 generationConfig: {
                     temperature: 0.3,
-                    maxOutputTokens: 2048,
+                    maxOutputTokens: 512,
                 },
             }),
         }
