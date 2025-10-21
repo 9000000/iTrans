@@ -1,6 +1,6 @@
 // Variables
 let translateButton = null;
-let modal = null;
+let popup = null;
 let selectedText = "";
 let selectionRange = null;
 
@@ -23,43 +23,37 @@ function createTranslateButton() {
     return translateButton;
 }
 
-// Create modal
-function createModal() {
-    if (modal) return modal;
+// Create popup
+function createPopup() {
+    if (popup) return popup;
 
-    modal = document.createElement("div");
-    modal.id = "ai-translate-modal";
-    modal.innerHTML = `
-    <div class="ai-modal-content">
-      <div class="ai-modal-header">
-        <span class="ai-modal-title">🌐 Bản dịch</span>
-        <button class="ai-modal-close">&times;</button>
-      </div>
-      <div class="ai-modal-body">
-        <div class="ai-original">
-          <strong>Gốc:</strong>
-          <div class="ai-text"></div>
+    popup = document.createElement("div");
+    popup.id = "ai-translate-popup";
+    popup.innerHTML = `
+        <div class="ai-popup-content">
+            <div class="ai-popup-header">
+                🌐 <span class="ai-popup-title">Bản dịch</span>
+                <button class="ai-popup-close">&times;</button>
+            </div>
+            <div class="ai-popup-body">
+                <div class="ai-original">
+                    <strong>Gốc:</strong>
+                    <div class="ai-text ai-original-text"></div>
+                </div>
+                <div class="ai-translated">
+                    <strong>Dịch:</strong>
+                    <div class="ai-text ai-translated-text"></div>
+                </div>
+            </div>
         </div>
-        <div class="ai-translated">
-          <strong>Dịch:</strong>
-          <div class="ai-text"></div>
-        </div>
-      </div>
-    </div>
-  `;
-    document.body.appendChild(modal);
+    `;
+    document.body.appendChild(popup);
 
-    modal.querySelector(".ai-modal-close").addEventListener("click", () => {
-        modal.style.display = "none";
+    popup.querySelector(".ai-popup-close").addEventListener("click", () => {
+        popup.style.display = "none";
     });
 
-    modal.addEventListener("click", (e) => {
-        if (e.target === modal) {
-            modal.style.display = "none";
-        }
-    });
-
-    return modal;
+    return popup;
 }
 
 // Show translate button
@@ -101,14 +95,19 @@ document.addEventListener("mouseup", (e) => {
 async function translateSelectedText() {
     if (!selectedText) return;
 
-    const modalEl = createModal();
-    const originalDiv = modalEl.querySelector(".ai-original .ai-text");
-    const translatedDiv = modalEl.querySelector(".ai-translated .ai-text");
+    const popupEl = createPopup();
+    const originalDiv = popupEl.querySelector(".ai-original-text");
+    const translatedDiv = popupEl.querySelector(".ai-translated-text");
 
     originalDiv.textContent = selectedText;
     translatedDiv.innerHTML = '<div class="ai-loading">Đang dịch...</div>';
-    modalEl.style.display = "flex";
     hideTranslateButton();
+
+    // Position popup under the selection
+    const rect = selectionRange.getBoundingClientRect();
+    popupEl.style.left = `${rect.left + window.scrollX}px`;
+    popupEl.style.top = `${rect.bottom + window.scrollY + 8}px`;
+    popupEl.style.display = "block";
 
     try {
         const result = await chrome.runtime.sendMessage({
@@ -153,4 +152,4 @@ document.addEventListener("mousedown", (e) => {
 
 // Initialize
 createTranslateButton();
-createModal();
+createPopup();
