@@ -37,7 +37,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.15);
   z-index: 999999;
-  width: 320px;
+  width: 400px;
   font-family: system-ui, sans-serif;
   display: none;
   animation: fadeInUp 0.25s ease;
@@ -98,7 +98,7 @@
 
 .ai-translated .ai-text {
   background: #ede9fe;
-  border-left: 3px solid #7c3aed;
+
 }
 
 .ai-loading {
