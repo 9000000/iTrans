@@ -204,22 +204,26 @@ async function translateSelectedText() {
     hideTranslateButton();
 
     // Load saved position if any
-    const data = await chrome.storage.sync.get(["popupPos"]);
-    const saved = data.popupPos;
+    try {
+        const data = await chrome.storage.sync.get(["popupPos"]);
+        const saved = data.popupPos;
 
-    if (
-        saved &&
-        typeof saved.left === "number" &&
-        typeof saved.top === "number"
-    ) {
-        // Use saved position
-        popupEl.style.left = saved.left + "px";
-        popupEl.style.top = saved.top + "px";
-    } else {
-        // Position popup under the selection
-        const rect = selectionRange.getBoundingClientRect();
-        popupEl.style.left = `${rect.left}px`;
-        popupEl.style.top = `${rect.bottom + 8}px`;
+        if (
+            saved &&
+            typeof saved.left === "number" &&
+            typeof saved.top === "number"
+        ) {
+            // Use saved position
+            popupEl.style.left = saved.left + "px";
+            popupEl.style.top = saved.top + "px";
+        } else {
+            // Position popup under the selection
+            const rect = selectionRange.getBoundingClientRect();
+            popupEl.style.left = `${rect.left}px`;
+            popupEl.style.top = `${rect.bottom + 8}px`;
+        }
+    } catch (error) {
+        console.error("Error loading popup position:", error);
     }
 
     // Ensure it's visible and within viewport
