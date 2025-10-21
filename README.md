@@ -2,13 +2,17 @@
 
 **AI Translator** là tiện ích mở rộng (Chrome Extension) giúp bạn dịch nhanh đoạn văn bản được chọn ngay trên trang web bằng **Google Gemini API**.
 
-⚡ **Tính năng nổi bật:**
+---
+
+## ⚡ Tính năng nổi bật
 
 -   Dịch tức thời đoạn văn hoặc cụm từ chỉ bằng **1 click** hoặc **phím tắt Alt+Shift+T**
 -   **Popup gọn nhẹ** hiển thị ngay dưới vùng chọn, không chiếm toàn màn hình
 -   **Phân biệt thông minh**:
+
     -   Nếu bạn chọn **một từ** → tra kiểu **từ điển** (nghĩa, từ loại, ví dụ)
     -   Nếu bạn chọn **một cụm / câu** → dịch tự nhiên như văn bản
+
 -   **Tự ẩn popup** khi click ra ngoài hoặc nhấn `Esc`
 -   Hỗ trợ **nhiều API key** xoay vòng khi key hết quota
 
@@ -19,13 +23,12 @@
 ### 🔹 Cách thủ công
 
 1. Clone hoặc tải repo này về máy:
+
     ```bash
     git clone https://github.com/nguyendangkin/iTrans.git
     ```
 
-````
-
-Hoặc tải file ZIP và giải nén.
+    Hoặc tải file ZIP và giải nén.
 
 2. Mở Chrome và truy cập:
 
@@ -96,7 +99,6 @@ ai-translator-extension/
 ├── content.css           # Giao diện popup & nút dịch
 ├── popup.html            # Giao diện trang cài đặt
 ├── popup.js              # Logic lưu & đọc API key, ngôn ngữ
-
 ```
 
 ---
@@ -122,7 +124,7 @@ ai-translator-extension/
 
 ## 🛠 8. Gỡ lỗi / Developer Tips
 
--   Mở **DevTools** (Ctrl + Shift + I) → tab **Console** để xem log
+-   Mở **DevTools** (`Ctrl + Shift + I`) → tab **Console** để xem log
 -   Khi thay đổi mã nguồn → vào `chrome://extensions/` → **Reload (⟳)** lại extension
 -   Nếu popup không hiện: kiểm tra xem `content.js` đã được inject chưa (tab Console)
 
@@ -137,6 +139,5 @@ hãy tạo **issue** hoặc **pull request** tại repo này 💬
 
 ## 🧾 Giấy phép
 
-MIT License © 2025
+**MIT License © 2025**
 Tự do sử dụng, chỉnh sửa, phân phối, miễn là ghi nguồn gốc.
-````
