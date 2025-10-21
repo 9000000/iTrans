@@ -53,6 +53,24 @@ function createPopup() {
         popup.style.display = "none";
     });
 
+    // ➊ Click ra ngoài -> ẩn popup
+    document.addEventListener("mousedown", (e) => {
+        if (
+            popup.style.display === "block" &&
+            !popup.contains(e.target) &&
+            !translateButton.contains(e.target)
+        ) {
+            popup.style.display = "none";
+        }
+    });
+
+    // ➋ Nhấn ESC -> ẩn popup
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && popup.style.display === "block") {
+            popup.style.display = "none";
+        }
+    });
+
     return popup;
 }
 
@@ -125,7 +143,7 @@ async function translateSelectedText() {
     }
 }
 
-// Listen for keyboard shortcut
+// Listen for keyboard shortcut (Ctrl+Alt+T)
 document.addEventListener("keydown", async (e) => {
     if (e.ctrlKey && e.altKey && e.key.toLowerCase() === "t") {
         e.preventDefault();
