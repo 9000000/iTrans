@@ -6,7 +6,7 @@
 
 ## ⚡ Tính năng nổi bật
 
--   Dịch tức thời đoạn văn hoặc cụm từ chỉ bằng **1 click** hoặc **phím tắt Alt+Shift+T**
+-   Dịch tức thời đoạn văn hoặc cụm từ chỉ bằng **1 click** hoặc **phím tắt Ctrl+Alt+T**
 -   **Popup gọn nhẹ** hiển thị ngay dưới vùng chọn, không chiếm toàn màn hình
 -   **Popup có thể kéo thả** di chuyển đến vị trí bất kỳ trên trang và **tự động nhớ** vị trí cho lần sau
 -   **Phân biệt thông minh**:
